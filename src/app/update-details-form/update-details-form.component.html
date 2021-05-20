@@ -1,0 +1,94 @@
+<div style="float: left;align-items: end;justify-self: end;">
+<button mat-icon-button  [mat-dialog-close]="true">
+<mat-icon >close</mat-icon>
+</button>
+</div>
+<mat-toolbar colspan="3" style="justify-content: center;background-color: #6C3483;align-self: stretch;">
+  <span>Modify</span>
+</mat-toolbar>
+
+<div style="height: 110%;width: 100%; margin-top: 5%;">
+  <div style="height: 70%;width: 100%;">
+    <mat-grid-list cols="3" >
+            <form style="margin-left: 10%;margin-right: 20%;"  [formGroup]="candidateForm" (ngSubmit)="onSubmit()" >
+              <table  style="grid-column-gap: 70px;">
+                <tr>
+                  <td>
+                    <mat-form-field >
+                      <mat-label>Full name</mat-label>
+                      <input type="hidden" value="id"  formControlName="id">
+                      <input matInput formControlName="name" name="name" [readonly]="true"> 
+                      <mat-error>This field is manditory</mat-error>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field >
+                      <mat-label>Email</mat-label>
+                      <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email" name="email">
+                      <mat-error>Invalid email address</mat-error>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field >
+                      <mat-label>Mobile Number</mat-label>
+                      <input matInput placeholder="Ex. 9868554748"formControlName="mobile" name="mobile">
+                      <mat-error *ngIf="candidateForm.controls['mobile'].error?.required">This field is manditory</mat-error>
+                      <mat-error *ngIf="candidateForm.controls['mobile'].error?.minlength">Minimum 8 character needed</mat-error>
+                    </mat-form-field>
+        
+                  </td>
+                  <td>
+                    <mat-form-field appearance="fill" >
+                      <mat-label>Date of birth</mat-label>
+                      <input matInput [matDatepicker]="datepicker" formControlName="dob" name="dob" >
+                      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                      <mat-datepicker #datepicker>
+                        <mat-datepicker-actions>
+                          <button mat-button matDatepickerCancel>Cancel</button>
+                          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                      </mat-datepicker>
+                    </mat-form-field>
+        
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-form-field >
+                      <mat-label>City</mat-label>
+                      <input matInput placeholder="Ex. San Francisco" formControlName="city" name="city">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field >
+                      <mat-label>State</mat-label>
+                      <input matInput placeholder="Ex. California" formControlName="state" name="state">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field >
+                      <mat-label>Postal Code</mat-label>
+                      <input matInput #postalCode maxlength="6" placeholder="Ex. 941005" formControlName="postalCode"name="postalCode">
+                      <mat-hint>{{postalCode.value.length}} / 6</mat-hint>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                      <mat-label>Age</mat-label>
+                      <mat-slider thumbLabel  tickInterval="1000" step="1" min="1" max="100"
+                        aria-label="units" #myvalue formControlName="age" name="age"   >
+                      </mat-slider>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="" >
+                    <button mat-raised-button color="primary" type="submit" [disabled]="candidateForm.invalid">Submit</button>
+                  </td>
+                  <td>
+                    <button mat-raised-button (click)="onReset()">Reset</button>
+                  </td>
+                </tr>
+              </table>        
+            </form>
+    </mat-grid-list>
+  </div>
+</div>

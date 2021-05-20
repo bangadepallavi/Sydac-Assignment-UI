@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+  }
+.mat-table {
+  overflow-x: scroll;
+}
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
+.table-container {
+  height: 400px;
+  overflow: auto;
+  /*
+  other CSS properties
+   */
+}
+
+.element-to-stick-to-bottom{
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+  
+}
