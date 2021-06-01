@@ -1,0 +1,18 @@
+
+body {
+    background-color: linen;
+    font-family: sans-serif;
+  }
+   
+  .bar > rect {
+    stroke: black;
+    stroke-width: 1;
+  }
+   
+  button {
+    margin-top: 1rem;
+  }
+   
+  #chart {
+    background-color: white;
+  }

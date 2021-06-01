@@ -18,7 +18,7 @@ export class PersonDetailsFormComponent implements OnInit {
   submitted=false;
   date: string="";
   maxDate = new Date();
-
+  chartData:any[] = [];
   agevalue = 0;
 
   constructor(private fb: FormBuilder,private candidateService:CandidateServiceService) {
@@ -38,29 +38,46 @@ export class PersonDetailsFormComponent implements OnInit {
       state : new FormControl('',Validators.pattern('^[a-zA-Z ]*$')),
       postalCode : new FormControl('',Validators.pattern('^[0-9]*$'))})
   
+
+      for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
+        this.chartData.push([
+          `Index ${i}`,
+          Math.floor(Math.random() * 100)
+        ]);
+      }
   }
   onReset()
   {
     this.candidateForm.reset();
   }
-  onSubmit() {
-    this.submitted = true;
-
-   
-    if (this.candidateForm.invalid) {
-        return;
-    }
+  onSubmit()
+   {
+      this.submitted = true;
 
     
-    this.candidateService.save(this.candidateForm.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                alert("Successfully registred");
-                window.location.reload();
-            },
-            error => {
-              alert("Unable to registre");
-            });
-}
+      if (this.candidateForm.invalid) {
+          return;
+      }
+
+      
+      this.candidateService.save(this.candidateForm.value)
+          .pipe(first())
+          .subscribe(
+              data => {
+                  alert("Successfully registred");
+                  window.location.reload();
+              },
+              error => {
+                alert("Unable to registre");
+              });
+  }
+  buttonClick(){
+    this.chartData = [];
+    for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
+      this.chartData.push([
+        `Index ${i}`,
+        Math.floor(Math.random() * 100)
+      ]);
+    }
+  }
 }

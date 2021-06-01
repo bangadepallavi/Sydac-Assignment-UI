@@ -29,16 +29,7 @@ describe('PersonTableComponent', () => {
     fixture.detectChanges();
     service=TestBed.get(CandidateServiceService);
   });
-  // it('should call onEditChannel, open Dialog & call channelSelectedService.updatePost when Edit button is clicked', fakeAsync(() => {
-  //   spyOn(service, 'update').and.callThrough();
-
-  //   const editButton = debugElement.query(By.css('button[title=Edit]'));
-  //   editButton.triggerEventHandler('click', null);
-
-  //   expect(dialog.open).toHaveBeenCalled();
-  //   expect(channelSelectedService.updatePost).toHaveBeenCalledWith(postsMock[0]);
-  //   }
-  // ));
+ 
   it('should create', () => {
     expect(component).toBeTruthy();
   });

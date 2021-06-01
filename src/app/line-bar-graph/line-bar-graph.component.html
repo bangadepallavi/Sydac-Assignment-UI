@@ -1,0 +1,7 @@
+<mat-form-field>
+    <mat-select name="graphString"  placeholder="Graph" (selectionChange)=changeGraph($event)>
+      <mat-option [value]="'LG'">Line Graph</mat-option>
+      <mat-option [value]="'BG'">Bar Graph</mat-option>      
+    </mat-select>
+</mat-form-field>
+<div id="barContainer"></div>

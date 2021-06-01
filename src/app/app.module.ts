@@ -28,7 +28,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 import {CandidateServiceService} from '../services/candidate-service.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import { GraphComponent } from './graph/graph.component';
+import { RealTimeGraphComponent } from './real-time-graph/real-time-graph.component';
+import { DynamicGraphComponent } from './dynamic-graph/dynamic-graph.component';
+import { LineBarGraphComponent } from './line-bar-graph/line-bar-graph.component'
+// import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     PersonTableComponent,
     UpdateDetailsFormComponent,
     DeleteConfirmationComponent,
+    GraphComponent,
+    RealTimeGraphComponent,
+    DynamicGraphComponent,
+    LineBarGraphComponent,
+    // ChartsModule
   ],
   imports: [
     BrowserModule,
@@ -61,7 +70,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ReactiveFormsModule,
     MatDialogModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [CandidateServiceService],
   bootstrap: [AppComponent]
