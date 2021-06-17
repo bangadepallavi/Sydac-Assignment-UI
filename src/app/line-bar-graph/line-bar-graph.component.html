@@ -1,7 +1,11 @@
-<mat-form-field>
-    <mat-select name="graphString"  placeholder="Graph" (selectionChange)=changeGraph($event)>
-      <mat-option [value]="'LG'">Line Graph</mat-option>
-      <mat-option [value]="'BG'">Bar Graph</mat-option>      
-    </mat-select>
-</mat-form-field>
-<div id="barContainer"></div>
+
+<input type="checkbox" name="bar"  data-md-icheck (change)="toggleVisibility1($event)"/> Bar Graph
+<input type="checkbox" name="line"  data-md-icheck (change)="toggleVisibility2($event)"/> Line Graph
+<span *ngIf="!marked2"> spam masseage</span>
+  <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-tile ><div  id="barContainer" ></div></mat-grid-tile>
+    <!-- <mat-grid-tile><div id="barContainer" style="border: 1px solid;"></div></mat-grid-tile> -->
+    <mat-grid-tile><div  id="lineContainer" ></div></mat-grid-tile>
+
+  </mat-grid-list>
+

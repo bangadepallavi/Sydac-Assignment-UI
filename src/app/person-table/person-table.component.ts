@@ -101,6 +101,20 @@ export class PersonTableComponent implements OnInit {
     console.log("Data to be delete",this.dataList);
     this.selection = new SelectionModel<any>(true, []);
   }
+
+  onbluckDelete(){
+    
+  }
+  isAllSelected(){
+    const numSelected = this.selection.selected.length;
+    const numRows = this.listData.data.length;
+    return numSelected === numRows;
+  }
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.listData.data.forEach(row => this.selection.select(row));
+  }
 }
 export interface CandidateInterface {
   id : number;

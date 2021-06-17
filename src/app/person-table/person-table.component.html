@@ -6,7 +6,12 @@
 <div class="table-container  mat-elevation-z8">
       <table mat-table [dataSource]="listData" >
           <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef> </th>
+              <th mat-header-cell *matHeaderCellDef> 
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
               <td mat-cell *matCellDef="let row ">
                   <mat-checkbox id='{{row.id}}'  value={{row.id}}
                   (click)="$event.stopPropagation()"

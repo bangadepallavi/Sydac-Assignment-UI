@@ -15,50 +15,27 @@ export class LineBarGraphComponent implements OnInit {
   private dataForBar:any[][] = [['2', 69],[ '87',73],[ '43',  11],[ '44', 5],[ '15', 22]];
   private svg: any;
   private margin = 50;
-  private width=1000;
-  private height=1000;
+  private svg1: any;
+   marked1 = false;
+   marked2 = false;
+
+  private width=500;
+  private height=300;
   private barMargin={top:50,bottom:50,left:50,right:50}
 
   public lineGroup: any;
   lineArea: any;
   timeForLine: any;
   timeForBar:any;
-  svgg:any;
+  timeForGenerateNumber:any;
   constructor() { }
 
   ngOnInit(): void {
     this.createSvg()
+    this.createSvg1()
+
   }
 
-  changeGraph(event: MatSelectChange){
-    console.log(event.value)
-    if(event.value==="LG")
-    {
-      clearInterval(this.timeForBar)
-      this.removeBarAxis();
-      this.createAxisForLineChart();
-      this.timeForLine = setInterval(() => {
-       let a=Math.floor(Math.random() * (100 - 1) + 1);
-       let b=Math.floor(Math.random() * (100 - 1) + 1);
-        this.dataForLine.push( [a, b])
-      this.drawPlotForLineChart();
-      }, 3000);
-      setInterval( () => {
-        this.dataForLine=[]     
-        this.clearPlotForLineChart()
-       }, 10000);
-    }
-    else if(event.value==="BG")
-    {
-      clearInterval(this.timeForLine)
-      this.timeForBar=setInterval( () => {
-         this.dataForBar=[]
-         this.clearbarForBarGraph()     
-         this.generateData();
-         this.drawForBarGraph(this.dataForBar);
-      }, 10000);
-    }
-  }
   createSvg()
   {
     d3.selectAll('.line').remove()
@@ -70,15 +47,24 @@ export class LineBarGraphComponent implements OnInit {
     .append('g')
     .attr("transform", "translate(" + this.barMargin.top + "," + this.barMargin.bottom + ")");
   }
+  createSvg1()
+  {
+    d3.selectAll('.line').remove()
+    this.svg1=d3.select("#lineContainer") 
+    .append('svg')
+    .attr("width", this.width + (this.margin * 2))
+    .attr("height", this.height + (this.margin * 2))
+    .append('g')
+    .attr("transform", "translate(" + this.barMargin.top + "," + this.barMargin.bottom + ")");
+  }
 
   // For Line chart
   private createAxisForLineChart(): void {
-     this.removeBarAxis();
      this.x = d3.scaleLinear()
     .domain([0, 100])
     .range([ 0, this.width ]);
     
-    this.svg.append("g")
+    this.svg1.append("g")
     .attr('class','xaxisLine')
     .attr("transform", "translate(0," + this.height + ")")
     .call(d3.axisBottom(this.x));
@@ -88,14 +74,17 @@ export class LineBarGraphComponent implements OnInit {
     .range([ this.height, 0]);
 
     
-    this.svg.append("g")
+    this.svg1.append("g")
     .attr('class','yaxisLine')
     .call(d3.axisLeft(this.y));
   }
   
   private drawPlotForLineChart(): void
   {
-    let dots = this.svg.append('g')
+    this.removeLineAxis();
+    this.createAxisForLineChart();
+
+    let dots = this.svg1.append('g')
     .attr('class','dot');
 
     dots.selectAll("dot")
@@ -108,7 +97,7 @@ export class LineBarGraphComponent implements OnInit {
     .style("opacity", .5)
     .style("fill", "#69b3a2");
 
-    this.svg.append("path")
+    this.svg1.append("path")
     .attr('class','linePath')
       .datum(this.dataForLine)
       .attr("fill", "none")
@@ -128,12 +117,12 @@ export class LineBarGraphComponent implements OnInit {
     for (let i=0;i<9;i++){
       let a=Math.floor(Math.random() * (100 - 1) + 1);
       let b=Math.floor(Math.random() * (100 - 1) + 1);
+      this.dataForLine.push([a,b]);
        this.dataForBar.push( [""+a, b])
     }
   }
   
   private drawForBarGraph(data: any[]): void {
-    this.removeLineAxis();
     this.x=d3.scaleBand()
     .range([0, this.width])
     .domain(this.dataForBar.map(d => d[0]))
@@ -141,7 +130,7 @@ export class LineBarGraphComponent implements OnInit {
     
     this.y=d3.scaleLinear()
     .domain([0,100])
-    .range([ this.height-this.barMargin.top-this.barMargin.bottom, 0]);
+    .range([ this.height, 0]);
     
     this.svg.append("g")
     .attr('class','xaxisBar')
@@ -181,7 +170,45 @@ export class LineBarGraphComponent implements OnInit {
   }
 
   removeLineAxis(){
-    d3.select('.xaxisLine').remove();
-    d3.select('.yaxisLine').remove();
+    d3.selectAll('.xaxisLine').remove();
+    d3.selectAll('.yaxisLine').remove();
+  }
+
+  toggleVisibility1(e:any){
+    this.marked1= e.target.checked;
+    if(e.target.checked)
+    {
+      this.timeForBar=setInterval( () => {
+       this.dataForBar=[]
+       this.clearbarForBarGraph()     
+       this.generateData();
+       this.drawForBarGraph(this.dataForBar);
+      }, 5000);
+    }
+    else{
+      clearInterval(this.timeForBar)
+      this.clearbarForBarGraph();
+      this.removeBarAxis();
+    }
+  }
+  
+  toggleVisibility2(e:any){
+    this.marked2= e.target.checked;
+    console.log(this.marked2)
+    if(e.target.checked)
+    {
+      this.createAxisForLineChart();
+      this.timeForLine=setInterval( () => {
+        this.dataForLine=[]     
+        this.clearPlotForLineChart()
+        this.generateData();
+      this.drawPlotForLineChart();
+       }, 5000);
+    }
+    else{
+      clearInterval(this.timeForLine)
+      this.clearPlotForLineChart();
+      this.removeLineAxis();
+    }
   }
 }

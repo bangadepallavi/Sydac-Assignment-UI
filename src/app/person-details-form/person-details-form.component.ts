@@ -29,8 +29,8 @@ export class PersonDetailsFormComponent implements OnInit {
   }
   ngOnInit(): void {
     this.candidateForm =new FormGroup({
-      name : new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')])   ,
-      email: new FormControl('',[Validators.email,Validators.required]),
+      name : new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+      email: new FormControl('',[Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       mobile: new FormControl('',[Validators.required,Validators.maxLength(10),Validators.minLength(10 ), Validators.pattern("^[0-9]*$")]),
       dob : new FormControl(''),
       age:new FormControl(),
@@ -71,13 +71,5 @@ export class PersonDetailsFormComponent implements OnInit {
                 alert("Unable to registre");
               });
   }
-  buttonClick(){
-    this.chartData = [];
-    for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
-      this.chartData.push([
-        `Index ${i}`,
-        Math.floor(Math.random() * 100)
-      ]);
-    }
-  }
+
 }
